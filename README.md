@@ -1,266 +1,230 @@
-# ASP.NET Core 9 Clean Architecture Template
+# SolarCRM
 
-A production-ready Clean Architecture template for ASP.NET Core 9 applications with CQRS, Entity Framework Core, PostgreSQL, and comprehensive testing setup.
+A **full-stack CRM platform** designed for **solar energy companies** to manage customers, installations, equipment, energy production, and customer support.
+This project demonstrates enterprise-grade **backend architecture** and **domain-driven design**, tailored for the renewable energy industry.
 
-## 🏗️ Architecture Overview
 
-This template follows Clean Architecture principles with clear separation of concerns:
+## 🌟 Project Overview
+
+SolarCRM provides a structured solution for companies in the solar industry by covering the following:
+
+* **Customer Management** → onboarding, document storage, and lifecycle tracking (Lead → Prospect → Active → Inactive).
+* **Installation Management** → project workflow (Survey → Design → Permits → Installation → Inspection → Activation).
+* **Technician Assignment** → manage and track crews working on installations.
+* **Equipment Tracking** → inventory, assignment, warranties, and maintenance.
+* **Energy Monitoring** → capture production data, compare expected vs. actual output, and log system health.
+* **Support & Communication** → ticketing system with attachments, technician assignments, and resolution tracking.
+* **Document Management** → unified file handling for customers, installations, and support cases.
+
+
+## 🚀 Tech Stack
+
+* **Backend:** ASP.NET Core (Clean Architecture + CQRS)
+* **Database:** PostgreSQL with Entity Framework Core
+* **Frontend:** React (TypeScript + TailwindCSS)
+* **Authentication:** JWT-based role management (Admin, Technician, Customer)
+* **Logging & Testing:** Serilog, xUnit, Moq, FluentAssertions
+
+## 🏗️ Project Structure
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                          WebAPI                             │
-│                    (Controllers, Middleware)                │
-├─────────────────────────────────────────────────────────────┤
-│                      Infrastructure                         │
-│              (Data Access, External Services)               │
-├─────────────────────────────────────────────────────────────┤
-│                       Application                           │
-│                (Business Logic, Use Cases)                  │
-├─────────────────────────────────────────────────────────────┤
-│                        Domain                               │
-│                (Entities, Value Objects)                    │
-└─────────────────────────────────────────────────────────────┘
-```
-
-## 📁 Project Structure
-
-```
-CleanArchitectureTemplate/
-├── src/
-│   ├── Domain/                  # Core business logic and entities
-│   │   ├── Common/
+SolarEnergyManagement/
+├── Backend/
+│   ├── Domain/                     # Core business entities
 │   │   ├── Entities/
+│   │   │   ├── Customer.cs
+│   │   │   ├── Installation.cs
+│   │   │   ├── EnergyProduction.cs
+│   │   │   └── Technician.cs
 │   │   ├── Enums/
-│   │   ├── ValueObjects/
-│   │   └── Events/
-│   ├── Application/             # Business use cases and application logic
-│   │   ├── Common/
-│   │   │   ├── Behaviours/
-│   │   │   ├── Interfaces/
-│   │   │   ├── Models/
-│   │   │   └── Mappings/
-│   │   └── Features/
-│   │       └── SampleEntity/
-│   │           ├── Commands/
-│   │           └── Queries/
-│   ├── Infrastructure/          # Data access and external services
+│   │   │   ├── CustomerStatus.cs
+│   │   │   ├── InstallationStatus.cs
+│   │   │   └── SystemHealth.cs
+│   │   └── ValueObjects/
+│   ├── Application/                # Business logic and use cases
+│   │   ├── Features/
+│   │   │   ├── Customers/
+│   │   │   │   ├── Commands/
+│   │   │   │   └── Queries/
+│   │   │   ├── Installations/
+│   │   │   └── EnergyMonitoring/
+│   │   └── Common/
+│   │       ├── Interfaces/
+│   │       ├── Behaviors/
+│   │       └── Models/
+│   ├── Infrastructure/             # Data access and external services
 │   │   ├── Data/
-│   │   │   ├── Configurations/
-│   │   │   └── Interceptors/
+│   │   │   ├── ApplicationDbContext.cs
+│   │   │   └── Configurations/
 │   │   ├── Services/
+│   │   │   ├── EmailService.cs
+│   │   │   └── FileStorageService.cs
 │   │   └── Identity/
-│   └── WebAPI/                  # API controllers and configuration
+│   └── WebAPI/                     # API controllers and configuration
 │       ├── Controllers/
-│       ├── Middleware/
-│       ├── Extensions/
-│       └── Filters/
+│       │   ├── CustomersController.cs
+│       │   ├── InstallationsController.cs
+│       │   └── EnergyController.cs
+│       └── Extensions/
 ├── tests/
-│   ├── UnitTests/               # Isolated unit tests
-│   └── IntegrationTests/        # End-to-end integration tests
-└── docs/                        # Documentation
+│   ├── UnitTests/
+│   └── IntegrationTests/
+└── frontend/ (Future)
+└── solar-dashboard-react/
 ```
+
+
+## 📦 Core Entities & Relationships
+
+### 👤 Customer
+
+* Stores customer details (name, email, phone, address).
+* Tracks **status** (`Lead`, `Prospect`, `Active`, `Inactive`).
+* Linked to **installations**, **documents**, and **support tickets**.
+
+### 📍 Address
+
+* Reusable entity for **customer addresses** and **installation sites**.
+
+### ⚡ Installation
+
+* Represents a solar project with workflow stages (`Survey → Design → Installation → Activation`).
+* Tracks **system specs** (size, panel count, inverter type).
+* Linked to **customer**, **installation address**, **status history**, **equipment**, **technicians**, and **documents**.
+
+### 📊 EnergyProduction
+
+* Daily production metrics (`Actual vs Expected`).
+* Linked to **installations** and optional **weather data**.
+* Helps calculate performance and detect system health issues.
+
+### 🔧 Equipment
+
+* Inventory entity for panels, inverters, batteries, etc.
+* Tracks **type**, **status** (`InStock`, `Installed`, `NeedsRepair`), **warranty**, and **costs**.
+* Assignable to **installations**.
+
+### 🛠️ Technician Assignment
+
+* Many-to-many mapping of **users** (technicians) to **installations**.
+* Tracks assignment date, role (Surveyor, Installer, Inspector), and completion status.
+
+### 📑 Document
+
+* Generic storage entity with **polymorphic links** to Customer, Installation, or SupportTicket.
+* Supports various types: contracts, permits, photos, reports, etc.
+
+### 🎫 SupportTicket
+
+* Ticketing system for customer issues.
+* Tracks **status** (`Open → InProgress → Resolved → Closed`) and **priority** (`Low → Critical`).
+* Linked to **customer**, **installation**, **assigned user**, and **documents**.
+
+### 👥 User
+
+* Represents system users: **Admin**, **Technician**, or **Customer**.
+* Stores authentication details and technician-specific info (specialization, license).
+* Linked to **assigned installations** and **support tickets**.
+
+
+## 📚 Enumerations
+
+* **CustomerStatus:** Lead, Prospect, Active, Inactive
+* **InstallationStatus:** Survey, Design, Permits, Installation, Inspection, Active, Deactivated
+* **EquipmentType:** SolarPanel, Inverter, Battery, etc.
+* **EquipmentStatus:** InStock, Assigned, Installed, NeedsRepair, Retired
+* **SystemHealthStatus:** Excellent → Offline
+* **TicketStatus / TicketPriority**
+* **DocumentType:** Customer, Installation, Ticket, Generic
+* **UserRole:** Admin, Technician, Customer
+
+
+## Customer Journey
+```
+Lead → Prospect → Survey → Design → Permits → Installation → Active
+```
+
+## Energy Monitoring Flow
+```
+Installation → Energy Production → Performance Analysis → Billing → Reporting
+```
+
+### Installation Phases
+1. **Survey** - Site assessment and requirements gathering
+2. **Design** - System design and engineering
+3. **Permits** - Regulatory approvals and documentation
+4. **Installation** - Physical system installation
+5. **Inspection** - Safety and compliance verification
+6. **Activation** - System commissioning and monitoring setup
+
 
 ## 🚀 Getting Started
 
-### Prerequisites
+### 1. Prerequisites
 
-- .NET 9.0 SDK
-- PostgreSQL (local or Docker)
-- Your favorite IDE (Visual Studio, VS Code, Rider)
+* [.NET 9 SDK (or target SDK in `global.json`)](https://dotnet.microsoft.com/download)
+* [PostgreSQL](https://www.postgresql.org/)
+* [Node.js (v18+)](https://nodejs.org/) for frontend
 
-### Using This Template
 
-1. **Clone and Rename**
+### 2. Backend Setup
+1. **Clone the Repository**
+
    ```bash
-   git clone <github link>
-   cd your-new-project
+   git clone <project>
+   cd solar-crm
    ```
 
-2. **Update Project Names** (Optional)
-    - Replace "CleanArchitectureTemplate" in solution file
-    - Update namespaces throughout the projects
-    - Rename projects if desired
+2. **Set Up Configuration**
+   Create a `.env` file in the project root and add the following values:
 
-3. **Configure Database**
-   - Check .env.example to configure database connection and Jwt settings
+    * **Database Connection**
 
+      ```env
+      DEFAULTCONNECTION=Host=localhost;Database=SolarEnergyDb;Username=postgres;Password=yourpassword
+      ```
 
-5. **Run the Application**
+    * **JWT Settings**
+
+      ```env
+      JWT_SECRET=your-jwt-secret-key-minimum-32-characters-long
+      JWT_ISSUER=your-app-name
+      JWT_AUDIENCE=your-app-users
+      JWT_EXPIRY_MINUTES=jwt_lifetime
+      JWT_REFRESH_TOKEN_LIFETIME_DAYS=refresh-token-lifetime
+      ```
+
+3. **Run Database Migrations**
+
+   ```bash
+   dotnet ef database update --project src/Infrastructure --startup-project src/WebAPI
+   ```
+
+4. **Build and Run the Application**
+
    ```bash
    dotnet restore
    dotnet build
    dotnet run --project src/WebAPI
    ```
 
-## 📦 Technology Stack
+5. **Access the API**
 
-### Core Framework
-- **.NET 9.0** - Latest .NET framework
-- **ASP.NET Core 9.0** - Web API framework
-- **Entity Framework Core 9.0** - ORM for data access
-- **PostgreSQL** - Primary database
+    * API Documentation (Scalar): [https://localhost:5228/scalar/v1](https://localhost:5228/scalar/v1)
 
-### Architecture & Patterns
-- **MediatR** - CQRS and Mediator pattern implementation
-- **AutoMapper** - Object-to-object mapping
-- **FluentValidation** - Request validation
 
-### Authentication & Security
-- **ASP.NET Identity** - User management
-- **JWT Bearer** - Token-based authentication
+## 🤝 Contributing
 
-### Logging & Documentation
-- **Serilog** - Structured logging
-- **Swagger/OpenAPI** - API documentation
-
-### Testing
-- **xUnit** - Testing framework
-- **Moq** - Mocking framework
-- **FluentAssertions** - Readable assertions
-- **TestContainers** - Integration testing with real databases
-
-## 🏛️ Architecture Principles
-
-### Clean Architecture Layers
-
-1. **Domain Layer** (Core)
-    - Contains enterprise business rules
-    - Entities, Value Objects, Domain Events
-    - No dependencies on other layers
-
-2. **Application Layer**
-    - Contains application business rules
-    - Use cases, Commands, Queries (CQRS)
-    - Depends only on Domain layer
-
-3. **Infrastructure Layer**
-    - Contains framework and external concerns
-    - Database access, external APIs, file systems
-    - Implements interfaces defined in Application layer
-
-4. **WebAPI Layer**
-    - Contains controllers and API configuration
-    - Depends on Application and Infrastructure layers
-    - Entry point for HTTP requests
-
-### Key Patterns
-
-- **CQRS** (Command Query Responsibility Segregation)
-- **Repository Pattern** with Unit of Work
-- **Dependency Injection**
-- **Domain Events**
-- **Specification Pattern** (optional)
-
-## 🧪 Testing
-
-### Running Tests
-
-```bash
-# Run all tests
-dotnet test
-
-# Run unit tests only
-dotnet test tests/UnitTests
-
-# Run integration tests only
-dotnet test tests/IntegrationTests
-
-# Run with coverage
-dotnet test --collect:"XPlat Code Coverage"
-```
-
-### Test Structure
-
-- **Unit Tests**: Fast, isolated tests for business logic
-- **Integration Tests**: Test complete request/response cycles
-- **TestContainers**: Real database instances for integration testing
-
-## 🛠️ Development
-
-### Adding New Features
-
-1. **Create Entity** (Domain layer)
-2. **Create Commands/Queries** (Application layer)
-3. **Create Handlers** (Application layer)
-4. **Create Controllers** (WebAPI layer)
-5. **Add Tests** (Unit and Integration)
-
-### Example: Adding a Product Feature
-
-```csharp
-// 1. Domain/Entities/Product.cs
-public class Product : BaseEntity
-{
-    public string Name { get; set; }
-    public decimal Price { get; set; }
-}
-
-// 2. Application/Features/Products/Commands/CreateProduct.cs
-public record CreateProductCommand(string Name, decimal Price) : IRequest<Guid>;
-
-public class CreateProductHandler : IRequestHandler<CreateProductCommand, Guid>
-{
-    // Implementation
-}
-
-// 3. WebAPI/Controllers/ProductsController.cs
-[ApiController]
-[Route("api/[controller]")]
-public class ProductsController : ControllerBase
-{
-    // Implementation
-}
-```
-
-## 🚀 Deployment
-
-### Docker Support
-
-```dockerfile
-# Add Dockerfile for containerization
-FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
-WORKDIR /app
-EXPOSE 80
-
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
-WORKDIR /src
-COPY . .
-RUN dotnet restore
-RUN dotnet build -c Release -o /app/build
-
-FROM build AS publish
-RUN dotnet publish -c Release -o /app/publish
-
-FROM base AS final
-WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "WebAPI.dll"]
-```
-
-### Environment Configuration
-
-- Development: `appsettings.Development.json`
-- Production: `appsettings.Production.json`
-- Environment variables for sensitive data
-
-## 📝 Contributing
+This is a learning project, but contributions and suggestions are welcome!
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
+3. Commit changes (`git commit -m 'Add amazing feature'`)
+4. Push to branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 📞 Support
-
-- 📧 Create an issue for bugs or feature requests
-- 💬 Discussions for questions and ideas
-- ⭐ Star this repository if you find it helpful!
-
----
-
-**Happy Coding!** 🎉
+*Built with ☀️ for the clean energy future!*
