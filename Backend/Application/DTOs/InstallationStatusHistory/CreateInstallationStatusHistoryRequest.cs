@@ -1,0 +1,3 @@
+namespace Application.DTOs.InstallationStatusHistory;
+
+public record CreateInstallationStatusHistoryRequest{}

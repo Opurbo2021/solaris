@@ -2,6 +2,7 @@ using Application;
 using DotNetEnv;
 using Infrastructure;
 using Infrastructure.Data;
+using Infrastructure.Data.Seeders;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Scalar.AspNetCore;
@@ -22,9 +23,9 @@ builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo 
     { 
-        Title = "Project Title", 
+        Title = "Solar CRM API", 
         Version = "v1",
-        Description = "Project Description"
+        Description = "API for managing solar installations, customers, and energy monitoring",
     });
     
     // Add JWT authentication to OpenAPI spec
@@ -82,7 +83,7 @@ if (app.Environment.IsDevelopment())
     app.MapScalarApiReference(options =>
     {
         options
-            .WithTitle("Project Title")
+            .WithTitle("Solar CRM API")
             .WithTheme(ScalarTheme.Kepler)
             .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient)
             .WithOpenApiRoutePattern("/swagger/{documentName}/swagger.json"); 
@@ -92,6 +93,7 @@ if (app.Environment.IsDevelopment())
     using var scope = app.Services.CreateScope();
     var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     await context.Database.MigrateAsync();
+    await DatabaseSeeder.SeedAsync(context);
 }
 
 app.UseSerilogRequestLogging();

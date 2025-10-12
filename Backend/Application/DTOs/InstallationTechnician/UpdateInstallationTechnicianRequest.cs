@@ -1,0 +1,3 @@
+namespace Application.DTOs.InstallationTechnician;
+
+public record UpdateInstallationTechnicianRequest{}
