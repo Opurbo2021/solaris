@@ -1,5 +1,7 @@
 using System.Text;
+using Application.Interfaces.Repositories;
 using Infrastructure.Data;
+using Infrastructure.Repositories;
 using Infrastructure.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -15,19 +17,19 @@ public static class DependencyInjection
     {
         services.Configure<JwtSetting>(options =>
         {
-            options.Secret = Environment.GetEnvironmentVariable("JWT_SECRET_KEY") ??
-                             throw new InvalidOperationException("JWT_SECRET_KEY environment variable is not set");
-            options.Issuer = Environment.GetEnvironmentVariable("JWT_ISSUER") ??
-                             throw new InvalidOperationException("JWT_ISSUER environment variable is not set");
-            options.Audience = Environment.GetEnvironmentVariable("JWT_AUDIENCE") ??
-                               throw new InvalidOperationException("JWT_AUDIENCE environment variable is not set");
+            options.Secret = Environment.GetEnvironmentVariable("SECRET_KEY") ??
+                             throw new InvalidOperationException("SECRET_KEY environment variable is not set");
+            options.Issuer = Environment.GetEnvironmentVariable("ISSUER") ??
+                             throw new InvalidOperationException("ISSUER environment variable is not set");
+            options.Audience = Environment.GetEnvironmentVariable("AUDIENCE") ??
+                               throw new InvalidOperationException("AUDIENCE environment variable is not set");
             options.LifeTime =
-                int.Parse(Environment.GetEnvironmentVariable("JWT_ACCESS_TOKEN_LIFETIME_MINUTES") ?? "15");
+                int.Parse(Environment.GetEnvironmentVariable("EXPIRY_MINUTES") ?? "15");
             options.RefreshTokenLifeTime =
-                int.Parse(Environment.GetEnvironmentVariable("JWT_REFRESH_TOKEN_LIFETIME_DAYS") ?? "7");
+                int.Parse(Environment.GetEnvironmentVariable("REFRESH_TOKEN_LIFETIME_DAYS") ?? "7");
         });
 
-        var connectionString = Environment.GetEnvironmentVariable("DefaultConnection");
+        var connectionString = Environment.GetEnvironmentVariable("DEFAULTCONNECTION");
         services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 
 
@@ -44,15 +46,29 @@ public static class DependencyInjection
                 ValidateAudience = true,
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
-                ValidAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE"),
-                ValidIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER"),
+                ValidAudience = Environment.GetEnvironmentVariable("AUDIENCE"),
+                ValidIssuer = Environment.GetEnvironmentVariable("ISSUER"),
                 IssuerSigningKey =
-                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_SECRET")!)),
+                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("SECRET_KEY")!)),
                 ClockSkew = TimeSpan.Zero
             };
         });
 
-
+        //Repositories
+        services.AddScoped<IAddressRepo, AddressRepo>();
+        services.AddScoped<ICustomerRepo, CustomerRepo>();
+        services.AddScoped<IDocumentRepo, DocumentRepo>();
+        services.AddScoped<IEnergyProductionRepo, EnergyProductionRepo>();
+        services.AddScoped<IEquipmentRepo, EquipmentRepo>();
+        services.AddScoped<IInstallationRepo, InstallationRepo>();
+        services.AddScoped<IInstallationStatusHistoryRepo, InstallationStatusHistoryRepo>();
+        services.AddScoped<IInstallationTechnicianRepo, InstallationTechnicianRepo>();
+        services.AddScoped<ISupportTicketRepo, SupportTicketRepo>();
+        services.AddScoped<IUserRepo, UserRepo>();
+        services.AddScoped<IWeatherDataRepo, WeatherDataRepo>();
+        
+        
+        
         return services;
     }
 }
