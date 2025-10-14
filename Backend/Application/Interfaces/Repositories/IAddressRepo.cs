@@ -5,4 +5,5 @@ namespace Application.Interfaces.Repositories;
 
 public interface IAddressRepo : IGenericRepo<Address>
 {
+    Task<IEnumerable<Address>> SearchByCityAndStateAsync(string city, string? state = null);
 }
