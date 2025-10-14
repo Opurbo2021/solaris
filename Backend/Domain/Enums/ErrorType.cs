@@ -30,7 +30,11 @@ public enum ResultStatusCode
     /// </summary>
     NotFound = 404,
     /// <summary>
+    /// The resource already exists
+    /// </summary>
+    Conflict = 409,
+    /// <summary>
     /// An internal server error occurred.
     /// </summary>
-    InternalServerError = 500
+    InternalServerError = 500,
 }
