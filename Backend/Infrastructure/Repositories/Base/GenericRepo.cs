@@ -7,7 +7,7 @@ namespace Infrastructure.Repositories.Base;
 public class GenericRepo<T>(AppDbContext context) : IGenericRepo<T>
     where T : class
 {
-    private readonly AppDbContext _context = context;
+    protected readonly AppDbContext Context = context;
     private readonly DbSet<T> _set = context.Set<T>();
 
     public virtual async Task<IReadOnlyList<T>> GetAllAsync()
@@ -23,18 +23,18 @@ public class GenericRepo<T>(AppDbContext context) : IGenericRepo<T>
     public virtual async Task<int> CreateAsync(T entity)
     {
         await _set.AddAsync(entity);
-        return await _context.SaveChangesAsync();
+        return await Context.SaveChangesAsync();
     }
 
     public virtual async Task<bool> UpdateAsync(T entity)
     {
         _set.Update(entity);
-        return await _context.SaveChangesAsync() > 0;
+        return await Context.SaveChangesAsync() > 0;
     }
 
     public virtual async Task<bool> DeleteAsync(T entity)
     {
         _set.Remove(entity);
-        return await _context.SaveChangesAsync() > 0;
+        return await Context.SaveChangesAsync() > 0;
     }
 }
