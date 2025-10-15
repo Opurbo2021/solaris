@@ -26,6 +26,10 @@ public enum ResultStatusCode
     /// </summary>
     Unauthorized = 401,
     /// <summary>
+    /// The user is forbidden from accessing the resource.
+    /// </summary>
+    Forbidden = 403,
+    /// <summary>
     /// The resource was not found.
     /// </summary>
     NotFound = 404,

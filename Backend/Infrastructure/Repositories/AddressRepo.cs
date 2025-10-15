@@ -8,7 +8,7 @@ namespace Infrastructure.Repositories;
 
 public class AddressRepo(AppDbContext context) : GenericRepo<Address>(context), IAddressRepo
 {
-    public async Task<IEnumerable<Address>> SearchByCityAndStateAsync(string city, string? state = null)
+    public async Task<IReadOnlyList<Address>> SearchByCityAndStateAsync(string city, string? state = null)
     {
         var query = Context.Addresses.AsNoTracking();
 

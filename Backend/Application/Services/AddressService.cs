@@ -12,17 +12,18 @@ namespace Application.Services;
 
 public sealed class AddressService(IAddressRepo repo, ILogger<AddressService> log) : IAddressService
 {
-    public async Task<Result<IEnumerable<AddressResponse>>> GetListAsync()
+    public async Task<Result<IReadOnlyList<AddressResponse>>> GetListAsync()
     {
         try
         {
             var addresses = await repo.GetAllAsync();
-            return Result.Success(addresses.Adapt<IEnumerable<AddressResponse>>());
+            var response = addresses.Adapt<IReadOnlyList<AddressResponse>>();
+            return Result.Success(response);
         }
         catch (Exception ex)
         {
             log.LogError(ex, $"Error while {nameof(GetByIdAsync)} for {nameof(Address)} List");
-            return Result.Failure<IEnumerable<AddressResponse>>(
+            return Result.Failure<IReadOnlyList<AddressResponse>>(
                 "An error occurred while retrieving addresses.",
                 ResultStatusCode.InternalServerError);
         }
@@ -73,6 +74,7 @@ public sealed class AddressService(IAddressRepo repo, ILogger<AddressService> lo
                 return Result.Failure<AddressResponse>("Address already exists.", ResultStatusCode.Conflict);
             
             var address = request.Adapt<Address>();
+            address.UniqueAddressHash = hash;
             await repo.CreateAsync(address);
             return Result.Success(address.Adapt<AddressResponse>(), ResultStatusCode.Created);
         }
@@ -99,7 +101,8 @@ public sealed class AddressService(IAddressRepo repo, ILogger<AddressService> lo
             
             if (await repo.ExistsAsync(id, newHash))
                 return Result.Failure<AddressResponse>("Address already exists.", ResultStatusCode.Conflict);
-            
+
+            address.UniqueAddressHash = newHash;
             var updated = await repo.UpdateAsync(address);
             return updated
                 ? Result.Success(ResultStatusCode.NoContent)
