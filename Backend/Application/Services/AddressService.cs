@@ -66,6 +66,12 @@ public sealed class AddressService(IAddressRepo repo, ILogger<AddressService> lo
     {
         try
         {
+            var hash = Address.BuildHash(request.Street, request.City, request.State,
+                request.ZipCode, request.Country);
+
+            if (await repo.ExistsAsync(hash))
+                return Result.Failure<AddressResponse>("Address already exists.", ResultStatusCode.Conflict);
+            
             var address = request.Adapt<Address>();
             await repo.CreateAsync(address);
             return Result.Success(address.Adapt<AddressResponse>(), ResultStatusCode.Created);
@@ -87,8 +93,14 @@ public sealed class AddressService(IAddressRepo repo, ILogger<AddressService> lo
                 return Result.NotFound($"Address with ID {id} not found.");
 
             request.Adapt(address);
+            
+            var newHash = Address.BuildHash(address.Street, address.City, address.State, 
+                address.ZipCode, address.Country);
+            
+            if (await repo.ExistsAsync(id, newHash))
+                return Result.Failure<AddressResponse>("Address already exists.", ResultStatusCode.Conflict);
+            
             var updated = await repo.UpdateAsync(address);
-
             return updated
                 ? Result.Success(ResultStatusCode.NoContent)
                 : Result.Failure("No changes were applied.", ResultStatusCode.BadRequest);
