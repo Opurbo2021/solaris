@@ -22,4 +22,18 @@ public class AddressRepo(AppDbContext context) : GenericRepo<Address>(context), 
             .ThenBy(a => a.Street)
             .ToListAsync();
     }
+
+    public async Task<bool> ExistsAsync(string uniqueAddressHash)
+    {
+        return await Context.Addresses
+            .AsNoTracking()
+            .AnyAsync(a => a.UniqueAddressHash == uniqueAddressHash);
+    }
+
+    public async Task<bool> ExistsAsync(int id, string uniqueAddressHash)
+    {
+        return await Context.Addresses
+            .AsNoTracking()
+            .AnyAsync(a => a.UniqueAddressHash == uniqueAddressHash && a.Id != id);
+    }
 }
