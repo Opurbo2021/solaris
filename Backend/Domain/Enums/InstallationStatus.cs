@@ -8,5 +8,6 @@ public enum InstallationStatus
     Installation,
     Inspection,
     Active,
-    Deactivated
+    Deactivated,
+    Cancelled
 }

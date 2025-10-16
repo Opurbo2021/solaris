@@ -47,11 +47,19 @@ public class AddressConfiguration : IEntityTypeConfiguration<Address>
         builder.Property(a => a.Longitude)
             .HasColumnName("longitude")
             .HasPrecision(10, 7);
-            
+        
+        builder.Property(a => a.UniqueAddressHash)
+            .HasColumnName("unique_address_hash")
+            .HasMaxLength(64);
+        
         // Indexes
         builder.HasIndex(a => new { a.City, a.State })
             .HasDatabaseName("ix_addresses_city_state");
 
+        builder.HasIndex(a => a.UniqueAddressHash)
+            .HasDatabaseName("ux_addresses_unique_address_hash")
+            .IsUnique();
+        
         builder.HasIndex(a => a.ZipCode)
             .HasDatabaseName("ix_addresses_zip_code");
     }

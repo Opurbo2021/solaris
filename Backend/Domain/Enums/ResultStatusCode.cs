@@ -26,11 +26,19 @@ public enum ResultStatusCode
     /// </summary>
     Unauthorized = 401,
     /// <summary>
+    /// The user is forbidden from accessing the resource.
+    /// </summary>
+    Forbidden = 403,
+    /// <summary>
     /// The resource was not found.
     /// </summary>
     NotFound = 404,
     /// <summary>
+    /// The resource already exists
+    /// </summary>
+    Conflict = 409,
+    /// <summary>
     /// An internal server error occurred.
     /// </summary>
-    InternalServerError = 500
+    InternalServerError = 500,
 }

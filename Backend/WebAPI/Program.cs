@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Scalar.AspNetCore;
 using Serilog;
+using SharpGrip.FluentValidation.AutoValidation.Mvc.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,9 @@ builder.Host.UseSerilog((context, configuration) =>
 Env.Load();
 builder.Configuration.AddEnvironmentVariables();
 builder.Services.AddControllers();
+
+// Auto-validation using FluentValidation 
+builder.Services.AddFluentValidationAutoValidation();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddSwaggerGen(options =>
