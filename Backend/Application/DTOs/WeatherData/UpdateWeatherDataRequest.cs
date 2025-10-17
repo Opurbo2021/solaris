@@ -1,3 +1,8 @@
 namespace Application.DTOs.WeatherData;
 
-public record UpdateWeatherDataRequest{}
+public class UpdateWeatherDataRequest
+{
+    public string? Condition { get; set; }
+    public decimal? TemperatureCelsius { get; set; }
+    public decimal? CloudCoverPercentage { get; set; }
+}
