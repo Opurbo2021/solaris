@@ -1,7 +1,7 @@
 using Application.DTOs.Address;
 using FluentValidation;
 
-namespace Application.Validators;
+namespace Application.Validators.Address;
 
 /// <summary>
 /// Validator for CreateAddressRequest DTO 
