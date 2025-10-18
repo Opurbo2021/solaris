@@ -28,3 +28,7 @@ body {
 .animate-scroll:hover {
   animation-play-state: paused;
 }
+
+/* Ensure dark mode works */
+@variant dark (&:where(.dark, .dark *)) {
+}

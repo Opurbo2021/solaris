@@ -1,6 +1,7 @@
 import type { NavLink } from '../../types';
 import logo from '../../assets/logo.png';
 import Button from '../common/Button';
+import ThemeToggle from '../common/ThemeToggle';
 
 
 const navigationLinks: NavLink[] = [
@@ -29,7 +30,7 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* CTA Buttons and Mobile Menu */}
+        {/* CTA Buttons, Theme Toggle, and Mobile Menu */}
         <div className="flex items-center gap-3">
           <div className="hidden sm:flex items-center gap-3">
             <Button variant="primary" size="sm" href="#login">
@@ -39,6 +40,8 @@ export default function Navbar() {
               Get Started
             </Button>
           </div>
+
+          <ThemeToggle />
 
           <button className="md:hidden p-2 rounded-lg text-white hover:bg-primary/20 transition-colors">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
