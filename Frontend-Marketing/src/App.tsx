@@ -1,6 +1,13 @@
 import Navbar from './components/layout/Navbar'
 import HeroSection from './components/sections/HeroSection'
 import AboutSection from './components/sections/AboutSection'
+import ServicesSection from './components/sections/SolutionSection'
+import HowItWorksSection from './components/sections/HowItWorksSection'
+import TestimonialsSection from './components/sections/TestimonialsSection'
+import WhyChooseSolarisSection from './components/sections/WhyChooseSolarisSection'
+import BlogSection from './components/sections/BlogSection'
+import CTASection from './components/sections/CTASection'
+import Footer from './components/sections/FooterSection'
 
 function App() {
   return (
@@ -11,7 +18,16 @@ function App() {
         </div>
         <HeroSection />
       </div>
-      <AboutSection />
+      <div className='space-y-[32px]'>
+        <AboutSection />
+        <ServicesSection />
+        <HowItWorksSection />
+        <TestimonialsSection />
+        <WhyChooseSolarisSection />
+        <BlogSection />
+        <CTASection />
+        <Footer />
+      </div>
     </div>
   )
 }
