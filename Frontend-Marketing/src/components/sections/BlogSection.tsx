@@ -33,19 +33,20 @@ const blogPosts = [
 
 export default function BlogSection() {
   return (
-    <section className="relative overflow-hidden bg-background-dark py-20 px-6 sm:px-10 lg:px-16">
+    <section className="relative overflow-hidden bg-background-light dark:bg-background-dark py-20 px-6 sm:px-10 lg:px-16">
       {/* Subtle gradient */}
-      <div className="absolute inset-0 bg-gradient-radial from-primary/10 via-transparent to-transparent opacity-80"
-        style={{ background: 'radial-gradient(circle at 10% 50%, rgba(250, 198, 56, 0.1) 0%, rgba(250, 198, 56, 0) 40%)' }}
+      <div 
+        className="absolute inset-0 opacity-15 dark:opacity-80 pointer-events-none"
+        style={{ background: 'radial-gradient(circle at 10% 50%, rgba(250, 198, 56, 0.15) 0%, rgba(250, 198, 56, 0) 40%)' }}
       />
       
       <div className="relative max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-extrabold tracking-tighter text-white mb-4">
+          <h2 className="text-4xl lg:text-5xl font-extrabold tracking-tighter text-gray-900 dark:text-white mb-4">
             Insights from the Solar Frontier
           </h2>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
             Your source for the latest news and analysis in solar technology.
           </p>
         </div>

@@ -13,13 +13,18 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   // Initialize theme from localStorage or default to 'dark'
   const [theme, setTheme] = useState<Theme>(() => {
     const savedTheme = localStorage.getItem('theme') as Theme;
-    return savedTheme || 'dark';
+    if (savedTheme) return savedTheme;
+
+    // If no saved theme, detect system preference
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return prefersDark ? 'dark' : 'light';
   });
+
 
   // Update localStorage and HTML class whenever theme changes
   useEffect(() => {
     localStorage.setItem('theme', theme);
-    
+
     const root = document.documentElement;
     if (theme === 'dark') {
       root.classList.add('dark');

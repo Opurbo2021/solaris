@@ -6,18 +6,20 @@ import { TbChartAreaLine } from 'react-icons/tb';
 
 export default function SolutionSection() {
   return (
-    <section className="relative min-h-screen overflow-hidden bg-background-dark py-20 px-6 sm:px-10 lg:px-16">
+    <section className="relative min-h-screen overflow-hidden bg-background-light dark:bg-background-dark py-20 px-6 sm:px-10 lg:px-16">
       {/* Subtle gradient background - bottom right */}
-      <div className="absolute inset-0 bg-gradient-radial from-primary/10 via-transparent to-transparent opacity-80"
-        style={{ background: 'radial-gradient(circle at 90% 50%, rgba(250, 198, 56, 0.1) 0%, rgba(250, 198, 56, 0) 40%)' }}
+      <div 
+        className="absolute inset-0 opacity-20 dark:opacity-80 pointer-events-none"
+        style={{ background: 'radial-gradient(circle at 90% 50%, rgba(250, 198, 56, 0.15) 0%, rgba(250, 198, 56, 0) 40%)' }}
       />
-      <div className="max-w-6xl mx-auto">
+      
+      <div className="relative max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-extrabold tracking-tighter text-white mb-6">
+          <h2 className="text-4xl lg:text-5xl font-extrabold tracking-tighter text-gray-900 dark:text-white mb-6">
             Our Solution
           </h2>
-          <p className="text-lg text-gray-300 max-w-3xl mx-auto">
+          <p className="text-lg text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
             A complete suite of tools to manage your solar business, from installation to long-term maintenance.
           </p>
         </div>

@@ -7,20 +7,20 @@ import { IoLeafOutline } from 'react-icons/io5';
 
 export default function WhyChooseSolarisSection() {
   return (
-    <section className="relative overflow-hidden bg-background-dark py-20 px-6 sm:px-10 lg:px-16">
+    <section className="relative overflow-hidden bg-background-light dark:bg-background-dark py-20 px-6 sm:px-10 lg:px-16">
       {/* Subtle gradient */}
       <div 
-        className="absolute inset-0 opacity-20 pointer-events-none" 
+        className="absolute inset-0 opacity-15 dark:opacity-20 pointer-events-none" 
         style={{ background: 'radial-gradient(circle at 80% 20%, rgba(242, 185, 13, 0.15) 0%, rgba(242, 185, 13, 0) 50%)' }} 
       />
       
       <div className="relative max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-extrabold tracking-tighter text-white mb-4">
+          <h2 className="text-4xl lg:text-5xl font-extrabold tracking-tighter text-gray-900 dark:text-white mb-4">
             Why Choose Solaris?
           </h2>
-          <p className="text-lg text-gray-300 max-w-3xl mx-auto">
+          <p className="text-lg text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
             Solaris is committed to providing top-tier solar solutions, from seamless installation to insightful energy management. Here's why we stand out.
           </p>
         </div>

@@ -17,22 +17,22 @@ export default function TimelineStep({ icon, title, description, position }: Tim
             {position === 'left' && (
               <>
                 <div>
-                  <h3 className="text-xl font-bold text-white mb-1">{title}</h3>
-                  <p className="text-sm text-gray-400">{description}</p>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">{title}</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{description}</p>
                 </div>
-                <div className="w-14 h-14 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
+                <div className="w-14 h-14 rounded-full bg-primary border-2 border-primary/20 dark:border-transparent flex items-center justify-center flex-shrink-0 shadow-md dark:shadow-none">
                   <div className="text-black text-2xl">{icon}</div>
                 </div>
               </>
             )}
             {position === 'right' && (
               <>
-                <div className="w-14 h-14 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
+                <div className="w-14 h-14 rounded-full bg-primary border-2 border-primary/20 dark:border-transparent flex items-center justify-center flex-shrink-0 shadow-md dark:shadow-none">
                   <div className="text-black text-2xl">{icon}</div>
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-white mb-1">{title}</h3>
-                  <p className="text-sm text-gray-400">{description}</p>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">{title}</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{description}</p>
                 </div>
               </>
             )}
@@ -41,10 +41,10 @@ export default function TimelineStep({ icon, title, description, position }: Tim
       </div>
 
       {/* Timeline Dot */}
-      <div className="w-4 h-4 rounded-full bg-white border-4 border-primary flex-shrink-0 z-10" />
+      <div className="w-4 h-4 rounded-full bg-primary border-4 border-white dark:border-primary flex-shrink-0 z-10 shadow-sm dark:shadow-none" />
 
       {/* Empty Space on Other Side */}
       <div className="flex-1" />
     </div>
   );
-}
+} 

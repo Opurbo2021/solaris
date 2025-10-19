@@ -18,7 +18,7 @@ function App() {
         </div>
         <HeroSection />
       </div>
-      <div className='space-y-[32px]'>
+      <div className='space-y-[32px]bg-background-light dark:bg-background-dark'>
         <AboutSection />
         <ServicesSection />
         <HowItWorksSection />

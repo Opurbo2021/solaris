@@ -75,17 +75,19 @@ const testimonials = [
 
 export default function TestimonialsSection() {
   return (
-    <section className="relative overflow-hidden bg-background-dark py-20">
+    <section className="relative overflow-hidden bg-background-light dark:bg-background-dark py-20">
       {/* Subtle gradient background */}
-      <div className="absolute inset-0 bg-gradient-radial from-primary/10 via-transparent to-transparent opacity-80"
-        style={{ background: 'radial-gradient(circle at 50% 60%, rgba(250, 198, 56, 0.1) 0%, rgba(250, 198, 56, 0) 40%)' }}
+      <div 
+        className="absolute inset-0 opacity-15 dark:opacity-80 pointer-events-none"
+        style={{ background: 'radial-gradient(circle at 50% 60%, rgba(250, 198, 56, 0.15) 0%, rgba(250, 198, 56, 0) 40%)' }}
       />
+      
       {/* Section Header */}
-      <div className="text-center mb-16 px-6">
-        <h2 className="text-4xl lg:text-5xl font-extrabold tracking-tighter text-white mb-4">
+      <div className="relative text-center mb-16 px-6">
+        <h2 className="text-4xl lg:text-5xl font-extrabold tracking-tighter text-gray-900 dark:text-white mb-4">
           Trusted by Installers and Innovators Worldwide
         </h2>
-        <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+        <p className="text-lg text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
           Hear what our partners have to say about their experience with Solaris.
         </p>
       </div>
@@ -111,6 +113,11 @@ export default function TestimonialsSection() {
           ))}
         </div>
       </div>
+
+      {/* Disclaimer */}
+      <p className="relative text-center text-gray-500 dark:text-gray-500 text-sm mt-12 px-6">
+        These testimonials reflect individual experiences and do not guarantee similar outcomes for all users.
+      </p>
     </section>
   );
 }

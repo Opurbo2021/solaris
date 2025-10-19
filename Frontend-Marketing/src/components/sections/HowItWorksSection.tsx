@@ -6,20 +6,20 @@ import { TbChartAreaLine } from 'react-icons/tb';
 
 export default function HowItWorksSection() {
   return (
-    <section className="relative min-h-screen overflow-hidden bg-background-dark py-20 px-6 sm:px-10 lg:px-16">
+    <section className="relative min-h-screen overflow-hidden bg-background-light dark:bg-background-dark py-20 px-6 sm:px-10 lg:px-16">
       {/* Subtle gradient background */}
       <div 
-        className="absolute inset-0 bg-gradient-radial from-primary/10 via-transparent to-transparent opacity-80" 
-        style={{ background: 'radial-gradient(circle at 50% 50%, rgba(242, 185, 13, 0.1) 0%, rgba(242, 185, 13, 0) 60%)' }} 
+        className="absolute inset-0 opacity-20 dark:opacity-80 pointer-events-none" 
+        style={{ background: 'radial-gradient(circle at 50% 50%, rgba(242, 185, 13, 0.15) 0%, rgba(242, 185, 13, 0) 60%)' }} 
       />
       
       <div className="relative max-w-4xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-20">
-          <h2 className="text-4xl lg:text-5xl font-extrabold tracking-tighter text-white mb-4">
+          <h2 className="text-4xl lg:text-5xl font-extrabold tracking-tighter text-gray-900 dark:text-white mb-4">
             How Solaris Works
           </h2>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
             A streamlined process from consultation to live monitoring, designed for your convenience.
           </p>
         </div>
@@ -27,7 +27,7 @@ export default function HowItWorksSection() {
         {/* Timeline */}
         <div className="relative">
           {/* Vertical Line */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-primary" />
+          <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-primary/40 dark:bg-primary" />
           
           {/* Timeline Steps */}
           <div className="relative space-y-16">
