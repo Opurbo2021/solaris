@@ -4,10 +4,11 @@ import StatCard from '../common/StatCard';
 
 export default function AboutSection() {
   return (
-    <section className="relative min-h-screen overflow-hidden bg-background-dark">
+    <section className="relative min-h-screen overflow-hidden bg-background-light dark:bg-background-dark">
       {/* Subtle gradient background */}
-      <div className="absolute inset-0 bg-gradient-radial from-primary/10 via-transparent to-transparent opacity-80"
-        style={{ background: 'radial-gradient(circle at 10% 20%, rgba(250, 198, 56, 0.1) 0%, rgba(250, 198, 56, 0) 40%)' }}
+      <div 
+        className="absolute inset-0 opacity-30 dark:opacity-80"
+        style={{ background: 'radial-gradient(circle at 10% 20%, rgba(250, 198, 56, 0.15) 0%, rgba(250, 198, 56, 0) 40%)' }}
       />
 
       <div className="relative flex flex-col justify-center min-h-screen px-6 py-16 sm:px-10 lg:px-16">
@@ -17,10 +18,10 @@ export default function AboutSection() {
             {/* Left Column - Content */}
             <div className="flex flex-col gap-8">
               <div className="space-y-4">
-                <h2 className="text-4xl lg:text-5xl font-extrabold tracking-tighter text-white">
+                <h2 className="text-4xl lg:text-5xl font-extrabold tracking-tighter text-gray-900 dark:text-white">
                   Built for Efficiency, Designed for the Planet.
                 </h2>
-                <p className="text-lg text-gray-300">
+                <p className="text-lg text-gray-700 dark:text-gray-300">
                   Solaris is dedicated to making solar adoption effortless through intelligent software.
                   We streamline the process, from installation to monitoring, ensuring a seamless transition
                   to clean energy for a brighter, more sustainable future.
@@ -44,7 +45,7 @@ export default function AboutSection() {
             {/* Right Column - Image */}
             <div className="w-full h-full">
               <div
-                className="w-full aspect-square bg-center bg-no-repeat bg-cover rounded-xl shadow-2xl shadow-primary/10"
+                className="w-full aspect-square bg-center bg-no-repeat bg-cover rounded-xl shadow-2xl shadow-gray-300/50 dark:shadow-primary/10"
                 style={{ backgroundImage: `url(${aboutImg})` }}
               />
             </div>
